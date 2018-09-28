@@ -58,7 +58,7 @@ function Application() {
                 // ---
 
                 _.each(response.last_blocks, function(o) {
-                    str += "<a href='http://explorer.litecointools.com/block/"+o.hash+"' target='_blank'>"+o.height+" - "+o.hash+" <img src='link.gif'/></a><br/>";
+                    str += "<a href='https://testnet.litecore.io/block/"+o.hash+"' target='_blank'>"+o.height+" - "+o.hash+" <img src='link.gif'/></a><br/>";
                 });
 
                 $("#last_blocks").html(str);
@@ -69,20 +69,30 @@ function Application() {
                 _.each(response.info, function(v,n) {
                     str += "<tr><td style='text-align:left;'>"+n+"</td><td style='text-align:left;'>";
 
-                     if (n == "softforks") {
-                        var softforks = "";
-                        _.each(response.info.softforks, function(softfork) {
-                            softforks += softfork.id + ", ";
-                        });
-                        v = softforks.substr(0, softforks.length-2);
-                    }
-
-                    if (n == "bip9_softforks") {
-                        var bip9softforks = "";
-                        _.each(response.info.bip9_softforks, function(val, name) {
-                            bip9softforks += name + " (" + val.status + "), ";
-                        });
-                        v = bip9softforks.substr(0, bip9softforks.length-2);
+                    switch (n) {
+                        case "bestblockhash": {
+                            var link = "<a href='https://testnet.litecore.io/block/"+v+"' target='_blank'>"+v+" <img src='link.gif'/></a>";
+                            v = link
+                            break;
+                        }
+                        case "softforks": {
+                            var softforks = "";
+                            _.each(response.info.softforks, function(softfork) {
+                                softforks += softfork.id + ", ";
+                            });
+                            v = softforks.substr(0, softforks.length-2);
+                            break;
+                        }
+                        case "bip9_softforks": {
+                            var bip9softforks = "";
+                            _.each(response.info.bip9_softforks, function(val, name) {
+                                bip9softforks += name + " (" + val.status + "), ";
+                            });
+                            v = bip9softforks.substr(0, bip9softforks.length-2);
+                            break;
+                        }
+                        default:
+                            break;
                     }
 
                     str += v;
