@@ -210,7 +210,7 @@ function Application() {
     }
 
     function update_status() {
-        self.client.getInfo(function(err, info) {
+        self.client.getBlockchainInfo(function(err, info) {
             if(err)
                 console.error("getInfo error:",err);
             self.status.info = info;
@@ -267,7 +267,7 @@ function Application() {
     dpc(2000, init);
 }
 
-GLOBAL.app = new Application();
+global.app = new Application();
 
 /*
 
