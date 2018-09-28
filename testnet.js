@@ -267,7 +267,7 @@ function Application() {
     dpc(2000, init);
 }
 
-GLOBAL.app = new Application();
+global.app = new Application();
 
 /*
 
